@@ -1,8 +1,8 @@
 import Slider from "./slider";
 
 export default class MainSlider extends Slider {
-  constructor(btns) {
-    super(btns);
+  constructor(btns, prevmodule, nextmodule) {
+    super(btns, prevmodule, nextmodule);
   }
 
   
@@ -44,11 +44,7 @@ export default class MainSlider extends Slider {
     this.showSlides(this.slideIndex += n)
   }
 
-  render() {
-    try {
-      this.hanson = document.querySelector('.hanson')
-    } catch (e) {}
-    
+  bindTriggers() {
     this.btns.forEach(item => {
       item.addEventListener('click', () => {
         this.plusSlides(1);
@@ -61,6 +57,36 @@ export default class MainSlider extends Slider {
       })
     })
 
-    this.showSlides(this.slideIndex)
+    
+  }
+
+  triggersSecondPage({module, slideIndex}){
+    module.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault()
+        this.plusSlides(slideIndex)
+      })
+    })
+  }
+
+  render() {
+    if (this.container) {//Сделано для второй страницы, проверка на существование элемента ~есть блок ниже выполняется 
+      try {
+        this.hanson = document.querySelector('.hanson')
+      } catch (e) {}
+
+      this.showSlides(this.slideIndex)
+      this.bindTriggers()
+      
+      this.triggersSecondPage({
+        module: this.prevmodule,
+        slideIndex: -1,
+      })
+      this.triggersSecondPage({
+        module: this.nextmodule,
+        slideIndex: 1,
+      })
+    }
   }
 }

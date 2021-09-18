@@ -1,12 +1,14 @@
 export default class Difference {
   constructor(oldOfficer, newOfficer, items) {
-    this.oldOfficer = document.querySelector(oldOfficer);
-    this.newOfficer = document.querySelector(newOfficer);
-    this.oldItems = this.oldOfficer.querySelectorAll(items);
-    this.newItems = this.newOfficer.querySelectorAll(items);
-    this.items = items;
-    this.oldCounter = 0;
-    this.newCounter = 0;
+    try{
+      this.oldOfficer = document.querySelector(oldOfficer);
+      this.newOfficer = document.querySelector(newOfficer);
+      this.oldItems = this.oldOfficer.querySelectorAll(items);
+      this.newItems = this.newOfficer.querySelectorAll(items);
+      this.items = items;
+      this.oldCounter = 0;
+      this.newCounter = 0;
+    }catch(e){}
   }
 
   bindTriggers({selector, counter, item}) {
@@ -39,25 +41,27 @@ export default class Difference {
 
 
   init() {
-    this.hideItems({
-      item: this.oldItems
-    })
-
-    this.hideItems({
-      item: this.newItems
-    })
-
-    this.bindTriggers({
-      selector: this.oldOfficer,
-      counter: this.oldCounter,
-      item: this.oldItems,
-    })
-
-    this.bindTriggers({
-      selector: this.newOfficer,
-      counter: this.newCounter,
-      item: this.newItems,
-    })
+    try{
+      this.hideItems({
+        item: this.oldItems
+      })
+  
+      this.hideItems({
+        item: this.newItems
+      })
+  
+      this.bindTriggers({
+        selector: this.oldOfficer,
+        counter: this.oldCounter,
+        item: this.oldItems,
+      })
+  
+      this.bindTriggers({
+        selector: this.newOfficer,
+        counter: this.newCounter,
+        item: this.newItems,
+      })
+    } catch (e) {}
 
   }
 }
